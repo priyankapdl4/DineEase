@@ -1,0 +1,114 @@
+{% include "templates/header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Blog</title>
+    <style>
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F6EEC9;
+    color: #333;
+    margin-top: 150px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 20px;
+}
+
+.events, .offers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.event, .offer {
+    background-color: #EADBC8;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: calc(33% - 40px);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.event:hover, .offer:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #34495e;
+    margin: 10px 0;
+}
+
+p {
+    padding: 0 15px;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #7f8c8d;
+}
+
+p strong {
+    color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+    .event, .offer {
+        width: calc(50% - 40px);
+    }
+}
+
+@media (max-width: 480px) {
+    .event, .offer {
+        width: calc(100% - 40px);
+    }
+}
+</style>
+
+    
+</head>
+<body>
+    <h1>Upcoming Events</h1>
+    <div class="events">
+        {% for event in events %}
+            <div class="event">
+                <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                <h2>{{ event.title }}</h2>
+                <p>{{ event.description }}</p>
+                <p><strong>Date:</strong> {{ event.date }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <h1>Current Offers</h1>
+    <div class="offers">
+        {% for offer in offers %}
+            <div class="offer">
+                <img src="{{ offer.image.url }}" alt="{{ offer.title }}">
+                <h2>{{ offer.title }}</h2>
+                <p>{{ offer.description }}</p>
+                <p><strong>Discount:</strong> {{ offer.discount_percentage }}%</p>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

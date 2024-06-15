@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DineEase - Amazing & Delicious Food</title>
+
+  <link rel="shortcut icon" href="/static/images/favicon.svg" type="image/svg+xml">
+
+
+  <link rel="stylesheet" href="/static/css/index.css">
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Rubik:wght@400;500;600;700&family=Shadows+Into+Light&display=swap"
+    rel="stylesheet">
+
+
+  <link rel="preload" as="image" href="/static/images/hero-bg.jpg">
+
+</head>
+
+<body id="top">
+
+
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <h1>
+        <a href="/" class="logo">DineEase<span class="span"></span></a>
+      </h1>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+
+          <li class="nav-item">
+            <a href="/" class="navbar-link" data-nav-link><b>HOME</b></a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/about-us" class="navbar-link" data-nav-link><b>ABOUT</b></a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/order" class="navbar-link" data-nav-link><b>SHOP</b></a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/blog" class="navbar-link" data-nav-link><b>BLOG</b></a>
+          </li>
+
+          <li class="nav-item">
+            <a href="/contact" class="navbar-link" data-nav-link><b>CONTACT-US</b></a>
+          </li>
+          
+
+        </ul>
+      </nav>
+
+     
+
+        <button class="btn btn-hover"><a href="/reservations"><b>Reservation</b></a></button>
+        {% comment %} <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a> {% endcomment %}
+
+        <button class="nav-toggle-btn" aria-label="Toggle Menu" data-menu-toggle-btn>
+          <span class="line top"></span>
+          <span class="line middle"></span>
+          <span class="line bottom"></span>
+        </button>
+      </div>
+
+    </div>
+  </header>

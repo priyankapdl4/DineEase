@@ -1,0 +1,188 @@
+{% include "templates/header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reserve Table {{ table.number }}</title>
+    <style>
+      body {
+        
+        background-color: #F6EEC9;
+        
+       
+      }
+      p{
+        margin-top: 100px;
+        text-align: center;
+      }
+           
+    /* General Form Styling */
+form {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #EADBC8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+ 
+}
+
+/* Label Styling */
+form label {
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Input and Select Styling */
+form input[type="text"],
+form input[type="email"],
+form input[type="date"],
+form input[type="time"],
+form select {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 16px;
+}
+
+/* Button Styling */
+form button[type="submit"] {
+  width: 100%;
+  padding: 15px;
+  background-color: #543310;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button[type="submit"]:hover {
+  background-color: #74512D;
+}
+
+/* Hover Effects */
+form input[type="text"]:hover,
+form input[type="email"]:hover,
+form input[type="date"]:hover,
+form input[type="time"]:hover,
+form select:hover {
+  border-color: #aaa;
+}
+
+/* Focus Effects */
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="date"]:focus,
+form input[type="time"]:focus,
+form select:focus {
+  border-color: #28a745;
+  outline: none;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* Form Paragraphs */
+form p {
+  margin: 0 0 20px;
+}
+
+  </style>
+</head>
+<body>
+    <p><b>Reserve Table {{ table.number }}</b><p>
+    <form method="post" id="reservation-form" action="{% url 'reserve_table' table.id %}">
+        {% csrf_token %}
+        {% comment %} <input type="hidden" name="csrfmiddlewaretoken" value="8beE0gPK9fxNO7YoqBlkpEwtCVPAsVRgQ5UfcWVDXNObMhmZ703jRxKIehARk6GK"> {% endcomment %}
+        <p>
+    <label for="id_table">Table:</label>
+    <select name="table" class="form-control" required id="id_table">
+  <option value="" selected>---------</option>
+
+  <option value="1">Table 1</option>
+
+  <option value="2">Table 2</option>
+
+  <option value="3">Table 3</option>
+
+  <option value="4">Table 4</option>
+
+  <option value="5">Table 5</option>
+
+  <option value="6">Table 6</option>
+
+  <option value="7">Table 7</option>
+
+  <option value="8">Table 8</option>
+
+</select>
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_name">Name:</label>
+    <input type="text" name="name" class="form-control" maxlength="100" required id="id_name">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_email">Email:</label>
+    <input type="email" name="email" class="form-control" maxlength="254" required id="id_email">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_date">Date:</label>
+    <input type="date" name="date" class="form-control" required id="id_date">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_time">Time:</label>
+    <input type="time" name="time" class="form-control" required id="id_time">
+    
+    
+      
+    
+  </p>
+        <button type="submit">Reserve</button>
+    </form>
+    <script>
+        document.getElementById('reservation-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            }).then(response => response.json())
+              .then(data => {
+                  alert(data.message);
+                  if (data.message.includes('successfully')) {
+                      window.location.href = '/';
+                  }
+              }).catch(error => {
+                  alert('An error occurred. Please try again.');
+              });
+        });
+    </script>
+</body>
+</html>

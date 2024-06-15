@@ -1,0 +1,99 @@
+{% include "templates/header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'contact/styles.css' %}">
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    
+      <center>
+      <div class="form">
+        <div class="contact-info">
+          <h3 class="title">Let's get in touch</h3>
+          <p class="text">
+            "Connecting with you, every step of the way."<br>
+                 "Your questions, our priority."
+          </p>
+
+          <div class="info">
+            <div class="information">
+              <img src="{% static 'contact/img/location.png' %}" class="icon" alt="" />
+              <p>Bharatpur-07, CHITWAN</p>
+            </div>
+            <div class="information">
+              <img src="{% static 'contact/img/email.png' %}" class="icon" alt="" />
+              <p>dinease12@gmail.com</p>
+            </div>
+            <div class="information">
+              <img src="{% static 'contact/img/phone.png' %}" class="icon" alt="" />
+              <p>9864043702</p>
+            </div>
+          </div>
+
+          <div class="social-media">
+            <p>Connect with us :</p>
+            <div class="social-icons">
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <span class="circle one"></span>
+          <span class="circle two"></span>
+
+          <form id="contact-form" method="post" action="{% url 'contact' %}">
+            {% csrf_token %}
+            <h3 class="title">Contact us</h3>
+            <div class="input-container">
+              <input type="text" name="name" class="input"  placeholder="Enter your Name" required />
+              <label for=""></label>
+              
+            </div>
+            <div class="input-container">
+              <input type="email" name="email" class="input"  placeholder="Enter your email address" required />
+              <label for=""></label>
+              
+            </div>
+            <div class="input-container">
+              <input type="tel" name="phone" class="input"  placeholder="Enter your Phone Number" required />
+              <label for=""></label>
+              
+            </div>
+            <div class="input-container textarea">
+              <textarea name="message" class="input"  placeholder="Enter your messages" required></textarea>
+              <label for=""></label>
+              
+            </div>
+            <input type="submit" value="Send" class="btn" />
+          </form>
+        </div>
+      </div>
+    </centre>
+      <div id="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14134.037854669505!2d84.42818301500526!3d27.670644624544618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snp!4v1718379395905!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+
+    
+  </body>
+</html>

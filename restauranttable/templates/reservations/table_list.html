@@ -1,0 +1,100 @@
+
+{% include "templates/header.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Table List</title>
+    <style>
+
+        /* Ensure the header part has some space below it for the tables */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F6EEC9;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-top: 150px;
+    margin-bottom: 20px;
+    
+       
+    
+}
+
+
+
+#tables {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Basic style for each table */
+.table {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Differentiate free and occupied tables */
+.table.free {
+    background-color: #28a745;
+    color: white;
+}
+
+.table.occupied {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Hover effect for tables */
+.table:hover {
+    transform: scale(1.05);
+}
+
+/* Add some padding and margin to the header and tables container */
+#tables {
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Restaurant Table List</h1>
+    <div id="tables">
+        {% for table in tables %}
+            <div class="table {% if table.is_booked %}occupied{% else %}free{% endif %}" onclick="reserveTable({{ table.id }})">
+                Table {{ table.number }}<br>
+                {% if table.is_booked %}Occupied{% else %}Free{% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        function reserveTable(tableId) {
+            if (document.querySelector(`.table:nth-child(${tableId})`).classList.contains('occupied')) {
+                alert('This table is already booked.');
+            } else {
+                window.location.href = `/reservations/reserve/${tableId}/`;
+            }
+        }
+    </script>
+</body>
+</html>
+
