@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar button {
+            float: right;
+            background-color: #333;
+            color: #f2f2f2;
+        }
+        .sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #555;
+            color: white;
+        }
+        .content {
+            margin-left: 210px;
+            padding: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Dashboard</a>
+        <button><a href="{% url 'logout' %}">Logout</a></button>
+    </div>
+    <div class="sidebar">
+        <a href="#">Orders</a>
+        <a href="#">My Orders</a>
+        <a href="#">Reserve Table</a>
+    </div>
+    <div class="content">
+        <h2>Welcome, {{ user.username }}</h2>
+        <p>This is your dashboard.</p>
+    </div>
+</body>
+</html>
