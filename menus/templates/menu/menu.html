@@ -1,3 +1,4 @@
+{% include "templates/header.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,21 +6,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #F6EEC9;
+            margin-top: 120px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 2.5em;
+            color: #333;
+        }
+
+        #categories {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 10px;
+        }
+
         .category {
             cursor: pointer;
-            padding: 10px;
-            border: 1px solid #000;
+            padding: 10px 20px;
+            border: 1px solid #ddd;
             margin: 5px;
-            display: inline-block;
+            border-radius: 5px;
+            background-color: #C7B7A3;
+            transition: background-color 0.3s, border-color 0.3s;
         }
+
+        .category:hover {
+            background-color: #ddd;
+            border-color: #F8C794;
+        }
+
+        #food-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
         .food-item {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin: 10px;
+            border-radius: 5px;
+            background-color: #C7B7A3;
+            width: calc(100% - 40px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
             display: none;
-            padding: 10px;
-            border: 1px solid #000;
-            margin: 5px;
         }
+
         .food-item.active {
-            display: block;
+            display: flex;
+        }
+
+        .food-detail {
+            width: calc(33.333% - 20px);
+            text-align: center;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #F6EEC9;
+        }
+
+        .food-detail h3 {
+            margin: 10px 0;
+        }
+
+        .food-detail img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .food-detail p {
+            margin: 10px 0;
+            color: black;
+        }
+
+        .food-detail button {
+            background-color: #74512D;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .food-detail button:hover {
+            background-color: #AF8F6F;
+        }
+
+        .food-detail button a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        @media (max-width: 900px) {
+            .food-detail {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .food-detail {
+                width: calc(100% - 20px);
+            }
+
+            .category {
+                padding: 10px;
+                margin: 3px;
+                font-size: 14px;
+            }
+
+            .food-detail button {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -33,13 +148,13 @@
     <div id="food-items">
         {% for category in categories %}
             <div class="food-item" data-category-id="{{ category.id }}">
-                <h2>{{ category.name }}</h2>
                 {% for item in category.fooditem_set.all %}
                     <div class="food-detail">
                         <h3>{{ item.name }}</h3>
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 200px; max-height: 200px;">
                         <p>{{ item.description }}</p>
-                        <p>Price: ${{ item.price }}</p>
-                        <button onclick="orderFood('{{ item.id }}')"><a href="{% url 'login' %}"> Order</a></button>
+                        <p>Price: Rs.{{ item.price }}</p>
+                        <button><a href="{% url 'login' %}">Order</a></button>
                     </div>
                 {% endfor %}
             </div>
@@ -56,10 +171,6 @@
                 document.querySelector(`.food-item[data-category-id="${categoryId}"]`).classList.add('active');
             });
         });
-
-        function orderFood(itemId) {
-            alert('Order placed for food item ' + itemId);
-        }
     </script>
 </body>
 </html>
