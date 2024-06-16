@@ -28,7 +28,8 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('contact/', include('contacts.urls')),
     path('accounts/', include('accounts.urls')),
-    # path('logout/', views.logoutPage, name='logout'),
+    
+    
     
     
     
