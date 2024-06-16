@@ -25,9 +25,9 @@ urlpatterns = [
     path('', views.homePage),
     path('about-us/', views.aboutUsPage),
     path('reservations/', include('restauranttable.urls')),
-    path('order/', include('menu.urls')),
     path('blog/', include('blog.urls')),
     path('contact/', include('contacts.urls')),
+    path('accounts/', include('accounts.urls')),
     # path('logout/', views.logoutPage, name='logout'),
     
     
