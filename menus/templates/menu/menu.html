@@ -1,176 +1,205 @@
 {% include "templates/header.html" %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Menu</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: #F6EEC9;
-            margin-top: 120px;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #f6eec9;
+        margin-top: 120px;
+      }
 
-        h1 {
-            text-align: center;
-            margin: 20px 0;
-            font-size: 2.5em;
-            color: #333;
-        }
+      h1 {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 2.5em;
+        color: #333;
+      }
 
-        #categories {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 10px;
+      #categories {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      .category {
+        cursor: pointer;
+        padding: 10px 20px;
+        border: 1px solid #ddd;
+        margin: 5px;
+        border-radius: 5px;
+        background-color: #c7b7a3;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+
+      .category:hover {
+        background-color: #ddd;
+        border-color: #f8c794;
+      }
+
+      #food-items {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .food-item {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 15px;
+        border: 1px solid #ddd;
+        margin: 10px;
+        border-radius: 5px;
+        background-color: #c7b7a3;
+        width: calc(100% - 40px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        display: none;
+      }
+
+      .food-item.active {
+        display: flex;
+      }
+
+      .food-detail {
+        width: calc(33.333% - 20px);
+        text-align: center;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f6eec9;
+      }
+
+      .food-detail h3 {
+        margin: 10px 0;
+      }
+
+      .food-detail img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 5px;
+      }
+
+      .food-detail p {
+        margin: 10px 0;
+        color: black;
+      }
+
+      .food-detail button {
+        background-color: #74512d;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .food-detail button:hover {
+        background-color: #af8f6f;
+      }
+
+      .food-detail button a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      @media (max-width: 900px) {
+        .food-detail {
+          width: calc(50% - 20px);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .food-detail {
+          width: calc(100% - 20px);
         }
 
         .category {
-            cursor: pointer;
-            padding: 10px 20px;
-            border: 1px solid #ddd;
-            margin: 5px;
-            border-radius: 5px;
-            background-color: #C7B7A3;
-            transition: background-color 0.3s, border-color 0.3s;
-        }
-
-        .category:hover {
-            background-color: #ddd;
-            border-color: #F8C794;
-        }
-
-        #food-items {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .food-item {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 15px;
-            border: 1px solid #ddd;
-            margin: 10px;
-            border-radius: 5px;
-            background-color: #C7B7A3;
-            width: calc(100% - 40px);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            display: none;
-        }
-
-        .food-item.active {
-            display: flex;
-        }
-
-        .food-detail {
-            width: calc(33.333% - 20px);
-            text-align: center;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #F6EEC9;
-        }
-
-        .food-detail h3 {
-            margin: 10px 0;
-        }
-
-        .food-detail img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-        }
-
-        .food-detail p {
-            margin: 10px 0;
-            color: black;
+          padding: 10px;
+          margin: 3px;
+          font-size: 14px;
         }
 
         .food-detail button {
-            background-color: #74512D;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+          padding: 8px 15px;
+          font-size: 14px;
         }
-
-        .food-detail button:hover {
-            background-color: #AF8F6F;
-        }
-
-        .food-detail button a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        @media (max-width: 900px) {
-            .food-detail {
-                width: calc(50% - 20px);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .food-detail {
-                width: calc(100% - 20px);
-            }
-
-            .category {
-                padding: 10px;
-                margin: 3px;
-                font-size: 14px;
-            }
-
-            .food-detail button {
-                padding: 8px 15px;
-                font-size: 14px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Menu</h1>
     <div id="categories">
-        {% for category in categories %}
-            <div class="category" data-category-id="{{ category.id }}">{{ category.name }}</div>
-        {% endfor %}
+      {% for category in categories %}
+        <div class="category" data-category-id="{{ category.id }}">{{ category.name }}</div>
+      {% endfor %}
     </div>
     <div id="food-items">
-        {% for category in categories %}
-            <div class="food-item" data-category-id="{{ category.id }}">
-                {% for item in category.fooditem_set.all %}
-                    <div class="food-detail">
-                        <h3>{{ item.name }}</h3>
-                        <img src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 200px; max-height: 200px;">
-                        <p>{{ item.description }}</p>
-                        <p>Price: Rs.{{ item.price }}</p>
-                        <button><a href="{% url 'login' %}">Order</a></button>
+      {% for category in categories %}
+        <div class="food-item" data-category-id="{{ category.id }}">
+          {% for f in category.fooditem_set.all %}
+            <div class="card shadow-lg m-2" style="width: 18rem">
+              <img src="{{ f.image.url }}"
+                   class="card-img-top"
+                   style="height: 220px"
+                   alt="image not found" />
+              <div class="card-body">
+                <h3 class="card-title">{{ f.name | title }}</h3>
+                <h5 class="card-title">Price - {{ f.price | title }}</h5>
+                <p class="card-text">Description - {{ f.description | title }}</p>
+                {% for item in cartitems %}
+                  {% if f.name == item.0 and item.1 != '0' %}
+                    <div class="d-flex float-bottom">
+                      {% if item.1 == 1 %}
+                        <a class="btn btn-danger"
+                           href="{% url 'update-cart' f.id %}?name=delete_cart_item"><i class="fa-solid fa-trash"></i></a>
+                      {% else %}
+                        <a class="btn btn-warning"
+                           href="{% url 'update-cart' f.id %}?name=decrease_cart"><i class="fa-solid fa-minus"></i></a>
+                      {% endif %}
+                      <h5 class="card-title mx-1">{{ item.1 }}</h5>
+                      <a class="btn btn-primary"
+                         href="{% url 'update-cart' f.id %}?name=increase_cart"><i class="fa-solid fa-plus"></i></a>
+                      <a class="btn btn-danger position-absolute end-0 mx-2"
+                         href="{% url 'update-cart' f.id %}?name=delete_cart_item"><i class="fa-solid fa-trash"></i></a>
                     </div>
+                  {% endif %}
+                  {% if f.name == item.0 and item.1 == '0' %}
+                    <a href="{% url 'update-cart' f.id %}" class="btn btn-success"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+                  {% endif %}
                 {% endfor %}
+                {% if request.user.is_anonymous %}
+                  <a href="{% url 'update-cart' f.id %}" class="btn btn-success">Cart</a>
+                {% endif %}
+              </div>
             </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
+      {% endfor %}
     </div>
-
     <script>
-        document.querySelectorAll('.category').forEach(category => {
-            category.addEventListener('click', function() {
-                document.querySelectorAll('.food-item').forEach(item => {
-                    item.classList.remove('active');
-                });
-                const categoryId = this.getAttribute('data-category-id');
-                document.querySelector(`.food-item[data-category-id="${categoryId}"]`).classList.add('active');
-            });
+      document.querySelectorAll(".category").forEach((category) => {
+        category.addEventListener("click", function () {
+          document.querySelectorAll(".food-item").forEach((item) => {
+            item.classList.remove("active");
+          });
+          const categoryId = this.getAttribute("data-category-id");
+          document
+            .querySelector(`.food-item[data-category-id="${categoryId}"]`)
+            .classList.add("active");
         });
+      });
     </script>
-</body>
+  </body>
 </html>

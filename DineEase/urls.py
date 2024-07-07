@@ -23,17 +23,13 @@ from DineEase import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.homePage),
+    path('', include('accounts.urls')),
     path('about-us/', views.aboutUsPage),
     path('reservations/', include('restauranttable.urls')),
     path('blog/', include('blog.urls')),
     path('contact/', include('contacts.urls')),
-    path('accounts/', include('accounts.urls')),
     path('menu/', include('menus.urls')),
-    
-    
-    
-    
-    
+    path('', include('order.urls')),
 ]
 
 if settings.DEBUG:

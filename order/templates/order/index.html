@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+{% block headercontent %}
+  {% include 'templates/header.html' %}
+{% endblock headercontent %}
+{% block maincontent %}
+  <div class="container">
+    <h1 class="text-center my-4">Menu</h1>
+    <div class="d-flex justify-content-center flex-wrap">
+      {% for category in categories %}
+        <div type="button"
+             class="category btn btn-secondary m-2"
+             data-category-id="{{ category.id }}">{{ category.name }}</div>
+      {% endfor %}
+    </div>
+    <div id="food-items" class="row">
+      {% for category in categories %}
+        <div class="food-item col-12" data-category-id="{{ category.id }}">
+          {% for f in category.fooditem_set.all %}
+            <div class="card shadow-lg m-2">
+              <img src="{{ f.image.url }}"
+                   class="card-img-top"
+                   style="height: 220px"
+                   alt="Image not found" />
+              <div class="card-body">
+                <h3 class="card-title">{{ f.name | title }}</h3>
+                <h5 class="card-title">Price - {{ f.price | title }}</h5>
+                <p class="card-text">Description - {{ f.description | title }}</p>
+                {% for item in cartitems %}
+                  {% if f.name == item.0 and item.1 != '0' %}
+                    <div class="d-flex align-items-center justify-content-between">
+                      {% if item.1 == 1 %}
+                        <a class="btn btn-danger"
+                           href="{% url 'update-cart' f.id %}?name=delete_cart_item">
+                          <i class="fa-solid fa-trash"></i>
+                        </a>
+                      {% else %}
+                        <a class="btn btn-warning"
+                           href="{% url 'update-cart' f.id %}?name=decrease_cart">
+                          <i class="fa-solid fa-minus"></i>
+                        </a>
+                      {% endif %}
+                      <h5 class="mx-2">{{ item.1 }}</h5>
+                      <a class="btn btn-primary"
+                         href="{% url 'update-cart' f.id %}?name=increase_cart">
+                        <i class="fa-solid fa-plus"></i>
+                      </a>
+                      <a class="btn btn-danger ms-2"
+                         href="{% url 'update-cart' f.id %}?name=delete_cart_item">
+                        <i class="fa-solid fa-trash"></i>
+                      </a>
+                    </div>
+                  {% endif %}
+                  {% if f.name == item.0 and item.1 == '0' %}
+                    <a href="{% url 'update-cart' f.id %}" class="btn btn-success">
+                      <i class="fa-solid fa-cart-shopping"></i> Cart
+                    </a>
+                  {% endif %}
+                {% endfor %}
+                {% if request.user.is_anonymous %}
+                  <a href="{% url 'update-cart' f.id %}" class="btn btn-success">Cart</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock maincontent %}
+{% block payment-gateway %}
+  <script>
+  document.querySelectorAll(".category").forEach((category) => {
+    category.addEventListener("click", function () {
+      document.querySelectorAll(".food-item").forEach((item) => {
+        item.classList.remove("active");
+      });
+      const categoryId = this.getAttribute("data-category-id");
+      document.querySelector(`.food-item[data-category-id="${categoryId}"]`).classList.add("active");
+    });
+  });
+  </script>
+{% endblock payment-gateway %}

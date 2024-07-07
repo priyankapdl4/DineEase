@@ -43,13 +43,7 @@ INSTALLED_APPS = [
     'contacts',
     'accounts',
     'menus',
-    
-    
-    
-
-    
-    
-
+    'order',
 ]
 
 MIDDLEWARE = [
