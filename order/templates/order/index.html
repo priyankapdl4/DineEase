@@ -17,10 +17,17 @@
         <div class="food-item col-12" data-category-id="{{ category.id }}">
           {% for f in category.fooditem_set.all %}
             <div class="card shadow-lg m-2">
+              {% if f.image %}
               <img src="{{ f.image.url }}"
-                   class="card-img-top"
-                   style="height: 220px"
-                   alt="Image not found" />
+                  class="card-img-top"
+                  style="height: 220px"
+                  alt="Image not found" />
+              {% else %}
+                  <div class="card-img-top" style="height: 220px; background-color: #f0f0f0;">
+                      <!-- Placeholder for missing image -->
+                      <p>image</p>
+                  </div>
+              {% endif %}
               <div class="card-body">
                 <h3 class="card-title">{{ f.name | title }}</h3>
                 <h5 class="card-title">Price - {{ f.price | title }}</h5>
