@@ -71,12 +71,12 @@
                 <a class="navbar-link dropdown-item" href="{% url 'my-orders' %}">My Orders</a>
               </li>
               <li>
-                <a class="navbar-link dropdown-item" href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i> Cart <span class="badge bg-danger p-1">{{ request.user.get_cart_count }}</span></a>
-              </li>
-              <li>
                 <a class="navbar-link dropdown-item" href="{% url 'logout' %}">Logout</a>
               </li>
             </ul>
+          </li>
+          <li>
+            <a class="navbar-link" href="{% url 'cart' %}"><i class="fa-solid fa-cart-shopping"></i> Cart <span class="badge bg-danger p-1">{{ request.user.get_cart_count }}</span></a>
           </li>
         {% else %}
           <li class="nav-item">
