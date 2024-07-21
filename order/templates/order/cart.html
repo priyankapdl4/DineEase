@@ -6,17 +6,214 @@
     {% include 'templates/header.html' %}
 {% endblock headercontent %}
 {% block maincontent %}
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #F6EEC9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px;
+            color: #4A4A4A;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+        }
+
+        .col-md-8, .col-md-4 {
+            padding: 15px;
+        }
+
+        .col-md-8 {
+            flex: 2;
+        }
+
+        .col-md-4 {
+            flex: 1;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            background-color: #EADBC8;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            max-width: 100%;
+            height: 150px; /* Set a fixed height for images */
+            object-fit: cover; /* Ensure images cover the set height and width */
+            border-radius: 5px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.2em;
+            margin: 0;
+            color: #333;
+        }
+
+        .card-text {
+            color: #666;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .btn-warning {
+            background-color: #f39c12;
+        }
+
+        .btn-warning:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            color: #fff;
+            text-align: center;
+            margin: 20px;
+            font-size: 1.1em;
+        }
+
+        .alert-info {
+            background-color: #5bc0de;
+            color: #fff;
+        }
+
+        .alert-warning {
+            background-color: #f0ad4e;
+            color: #fff;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .justify-content-between {
+            justify-content: space-between;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+
+        .m-5 {
+            margin: 3rem;
+        }
+
+        .p-5 {
+            padding: 3rem;
+        }
+
+        .border {
+            border: 1px solid #ddd;
+        }
+
+        .rounded {
+            border-radius: 10px;
+        }
+
+        .list-group {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .list-group-item {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background-color: #EADBC8;
+            transition: background-color 0.3s ease;
+        }
+
+        .list-group-item:hover {
+            background-color: #f8f8f8;
+        }
+
+        .list-group-item strong {
+            font-weight: bold;
+        }
+
+        .d-grid {
+            display: grid;
+        }
+    </style>
+
     {% if cartitems %}
-        <div class="row border rounded-5 border-primary m-5 p-5">
+        <div class="row m-5 p-5">
             <div class="col-md-8">
                 {% for item in cartitems %}
-                    <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row g-0">
+                    <div class="card">
+                        <div class="row">
                             <div class="col-md-4">
-                                <img src="{{ item.food.image.url }}"
-                                     class="img-fluid rounded-start"
-                                     style="height:180px;
-                                            width:220px">
+                                <img src="{{ item.food.image.url }}" alt="{{ item.food.name }}">
                             </div>
                             <div class="col-md-8">
                                 <div class="card-body">
@@ -26,8 +223,7 @@
                                             <p class="card-text">{{ item.food.description | title }}</p>
                                         </div>
                                         <div>
-                                            <a class="btn btn-danger"
-                                               href="{% url 'update-cart' item.food.id %}?name=delete_cart_item"><i class="fa-solid fa-trash"></i></a>
+                                            <a class="btn btn-danger" href="{% url 'update-cart' item.food.id %}?name=delete_cart_item"><i class="fa-solid fa-trash"></i></a>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between text-center mt-4">
@@ -37,17 +233,14 @@
                                         </div>
                                         <div class="border rounded">
                                             <h5 class="card-title border-bottom m-1">Quantity</h5>
-                                            <div class="d-flex">
+                                            <div class="d-flex align-items-center">
                                                 {% if item.quantity == 1 %}
-                                                    <a class="btn btn-danger"
-                                                       href="{% url 'update-cart' item.food.id %}?name=delete_cart_item"><i class="fa-solid fa-trash"></i></a>
+                                                    <a class="btn btn-danger" href="{% url 'update-cart' item.food.id %}?name=delete_cart_item"><i class="fa-solid fa-trash"></i></a>
                                                 {% else %}
-                                                    <a class="btn btn-warning"
-                                                       href="{% url 'update-cart' item.food.id %}?name=decrease_cart"><i class="fa-solid fa-minus"></i></a>
+                                                    <a class="btn btn-warning" href="{% url 'update-cart' item.food.id %}?name=decrease_cart"><i class="fa-solid fa-minus"></i></a>
                                                 {% endif %}
                                                 <h5 class="card-title mx-1">{{ item.quantity }}</h5>
-                                                <a class="btn btn-primary"
-                                                   href="{% url 'update-cart' item.food.id %}?name=increase_cart"><i class="fa-solid fa-plus"></i></a>
+                                                <a class="btn btn-primary" href="{% url 'update-cart' item.food.id %}?name=increase_cart"><i class="fa-solid fa-plus"></i></a>
                                             </div>
                                         </div>
                                         <div class="border rounded">
@@ -81,17 +274,13 @@
                             <form action="/checkout/" method="post" id="cashform">
                                 {% csrf_token %}
                                 <input type="hidden" name="paymode" value="Cash">
-                                <div class="d-grid">
-                                    <input type="submit"
-                                           class="btn btn-primary p-2 fw-semibold"
-                                           value="Pay Cash On Delivery">
-                                </div>
+                                <input type="submit" class="btn btn-primary p-2 fw-semibold" value="Pay Cash On Delivery">
                             </form>
                         </div>
                     </div>
                 </div>
                 <h5 class="alert alert-warning text-center mt-3 p-2 border border-warning border-3">
-                    Note: You Can Collect You Order from Canteen When <strong>Status</strong> is <strong>Packed</strong> in <a href="{% url 'my-orders' %}">My Orders</a> Page
+                    Note: You Can Collect Your Order from DineEase When <strong>Status</strong> is <strong>Packed</strong> in <a href="{% url 'my-orders' %}">My Orders</a> Page
                 </h5>
             </div>
         </div>
@@ -101,47 +290,48 @@
     {% endif %}
 {% endblock maincontent %}
 {% block payment-gateway %}
-    <script src="https://www.paypal.com/sdk/js?client-id=AdstVdkXtBT7eFeAKT1PuFTYmnm3a9HgAeyqXiJtxNKFQJav05K7ljkgv6e1EbefJo_crAAgYXsElPcf&currency=USD"></script>
-    <script>
-        // Render the PayPal button into #paypal-button-container
-        paypal.Buttons({
+<script src="https://www.paypal.com/sdk/js?client-id=AdstVdkXtBT7eFeAKT1PuFTYmnm3a9HgAeyqXiJtxNKFQJav05K7ljkgv6e1EbefJo_crAAgYXsElPcf&currency=USD"></script>
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
 
-            // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '{{total_amount}}'
-                        }
-                    }]
-                });
-            },
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '{{total_amount}}'
+                    }
+                }]
+            });
+        },
 
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(orderData) {
-                    // Successful capture! For demo purposes:
-                    // console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                    var transaction = orderData.purchase_units[0].payments.captures[0];
-                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nOrder Placed Successfully' + '\nClick OK to Proceed Further');
-					
-					form = document.getElementById('paypalform')
-					hidnInp = document.createElement("input")
-					hidnInp.setAttribute('type', 'hidden')
-					hidnInp.setAttribute('name', 'tn_id')
-					hidnInp.setAttribute('value', transaction.id)
-					form.appendChild(hidnInp)
-					document.getElementById('paypalform').submit()
-					
-                    // Replace the above to show a success message within this page, e.g.
-                    // const element = document.getElementById('paypal-button-container');
-                    // element.innerHTML = '';
-                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                    // Or go to another URL:  actions.redirect('thank_you.html');
-                });
-            }
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                // Successful capture! For demo purposes:
+                // console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                var transaction = orderData.purchase_units[0].payments.captures[0];
+                alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nOrder Placed Successfully' + '\nClick OK to Proceed Further');
+                
+                form = document.getElementById('paypalform')
+                hidnInp = document.createElement("input")
+                hidnInp.setAttribute('type', 'hidden')
+                hidnInp.setAttribute('name', 'tn_id')
+                hidnInp.setAttribute('value', transaction.id)
+                form.appendChild(hidnInp)
+                document.getElementById('paypalform').submit()
+                
+                // Replace the above to show a success message within this page, e.g.
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+        }
 
 
-        }).render('#paypal-button-container');
-    </script>
+    }).render('#paypal-button-container');
+</script>
 {% endblock payment-gateway %}
+

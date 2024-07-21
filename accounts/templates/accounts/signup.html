@@ -1,11 +1,11 @@
 {% include "templates/header.html" %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Signup</title>
-        <style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #F6EEC9;
@@ -91,69 +91,38 @@
             display: block;
             text-align: left;
         }
-        </style>
-    </head>
-    <body>
-        <div class="signup-container">
-            <h2>Signup</h2>
-            <form method="post">
-                {% csrf_token %}
-                <label for="id_username">Username:</label>
-                <input type="text"
-                       name="username"
-                       maxlength="150"
-                       autofocus
-                       required
-                       aria-describedby="id_username_helptext"
-                       id="id_username">
-                <span class="helptext" id="id_username_helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
-                <label for="id_email">Email address:</label>
-                <label for="id_password1">Password:</label>
-                <input type="password"
-                       name="password1"
-                       autocomplete="new-password"
-                       required
-                       aria-describedby="id_password1_helptext"
-                       id="id_password1">
-                <span class="helptext" id="id_password1_helptext">
-                    Your password must:
-                    <ul>
-                        <li>Be at least 8 characters long.</li>
-                        <li>Contain at least one uppercase letter, one lowercase letter, and one number.</li>
-                        <li>Not be entirely numeric or too similar to your other personal information.</li>
-                    </ul>
-                </span>
-                <label for="id_password2">Password confirmation:</label>
-                <input type="password"
-                       name="password2"
-                       autocomplete="new-password"
-                       required
-                       aria-describedby="id_password2_helptext"
-                       id="id_password2">
-                <span class="helptext" id="id_password2_helptext">Enter the same password as before, for verification.</span>
-                <button type="submit">Signup</button>
-                {% if message.tags == 'error' %}
-                    <!-- bootstrap alert -->
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>{{ message }}</strong>
-                        <button type="button"
-                                class="btn-close"
-                                data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                    </div>
-                {% endif %}
-                {% if message.tags == 'success' %}
-                    <!-- bootstrap alert -->
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{ message }}</strong>
-                        <button type="button"
-                                class="btn-close"
-                                data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                    </div>
-                {% endif %}
-            </form>
-            <a href="{% url 'login' %}">Already have an account? Login</a>
-        </div>
-    </body>
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Signup</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" maxlength="150" autofocus required aria-describedby="id_username_helptext" id="id_username">
+            <span class="helptext" id="id_username_helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+            
+            <label for="id_email">Email address:</label>
+            <input type="email" name="email" maxlength="254" id="id_email">
+            
+            <label for="id_password1">Password:</label>
+            <input type="password" name="password1" autocomplete="new-password" required aria-describedby="id_password1_helptext" id="id_password1">
+            <span class="helptext" id="id_password1_helptext">
+                Your password must:
+                <ul>
+                    <li>Be at least 8 characters long.</li>
+                    <li>Contain at least one uppercase letter, one lowercase letter, and one number.</li>
+                    <li>Not be entirely numeric or too similar to your other personal information.</li>
+                </ul>
+            </span>
+            
+            <label for="id_password2">Password confirmation:</label>
+            <input type="password" name="password2" autocomplete="new-password" required aria-describedby="id_password2_helptext" id="id_password2">
+            <span class="helptext" id="id_password2_helptext">Enter the same password as before, for verification.</span>
+            
+            <button type="submit">Signup</button>
+        </form>
+        <a href="{% url 'login' %}">Already have an account? Login</a>
+    </div>
+</body>
 </html>
