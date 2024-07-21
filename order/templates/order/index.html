@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Menu</title>
+        <style>
       body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -172,65 +172,94 @@
         }
     }
     
-    </style>
-</head>
-<body>
-    {% extends 'base/base.html' %}
-    {% block headercontent %}
-        {% include 'templates/header.html' %}
-    {% endblock headercontent %}
-    {% block maincontent %}
-        <div class="container">
-            <h1 class="text-center my-4">Menu</h1>
-            <div id="categories" class="categories">
-                {% for category in categories %}
-                    <div class="category" data-category-id="{{ category.id }}">{{ category.name }}</div>
-                {% endfor %}
-            </div>
-            <div id="food-items" class="food-items">
-                {% for category in categories %}
-                    <div class="food-item" data-category-id="{{ category.id }}">
-                        {% for f in category.fooditem_set.all %}
-                            <div class="food-detail">
-                                {% if f.image %}
-                                <img src="{{ f.image.url }}" alt="Image not found" />
-                                {% else %}
-                                <div class="image-placeholder">image</div>
-                                {% endif %}
-                                <div class="card-body">
-                                    <h3>{{ f.name | title }}</h3>
-                                    <h5>Price - {{ f.price | title }}</h5>
-                                    <p>Description - {{ f.description | title }}</p>
-                                    {% for item in cartitems %}
-                                        {% if f.name == item.0 and item.1 != '0' %}
-                                            <div class="cart-actions">
-                                                {% if item.1 == 1 %}
+        </style>
+    </head>
+    <body>
+        {% extends 'base/base.html' %}
+        {% block headercontent %}
+            {% include 'templates/header.html' %}
+        {% endblock headercontent %}
+        {% block maincontent %}
+            <div class="container">
+                <h1 class="text-center my-4">Menu</h1>
+                <div id="categories" class="categories">
+                    {% for category in categories %}
+                        <div class="category" data-category-id="{{ category.id }}">{{ category.name }}</div>
+                    {% endfor %}
+                </div>
+                <div id="food-items" class="food-items">
+                    {% for category in categories %}
+                        <div class="food-item" data-category-id="{{ category.id }}">
+                            {% for f in category.fooditem_set.all %}
+                                <div class="food-detail">
+                                    {% if f.image %}
+                                        <img src="{{ f.image.url }}" alt="Image not found" />
+                                    {% else %}
+                                        <div class="image-placeholder">image</div>
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h3>{{ f.name | title }}</h3>
+                                        <h5>Price - {{ f.price | title }}</h5>
+                                        <p>Description - {{ f.description | title }}</p>
+                                        {% for item in cartitems %}
+                                            {% if f.name == item.0 and item.1 != '0' %}
+                                                <div class="cart-actions">
+                                                    {% if item.1 == 1 %}
+                                                        <a href="{% url 'update-cart' f.id %}?name=delete_cart_item">Remove</a>
+                                                    {% else %}
+                                                        <a href="{% url 'update-cart' f.id %}?name=decrease_cart">-</a>
+                                                    {% endif %}
+                                                    <span>{{ item.1 }}</span>
+                                                    <a href="{% url 'update-cart' f.id %}?name=increase_cart">+</a>
                                                     <a href="{% url 'update-cart' f.id %}?name=delete_cart_item">Remove</a>
-                                                {% else %}
-                                                    <a href="{% url 'update-cart' f.id %}?name=decrease_cart">-</a>
-                                                {% endif %}
-                                                <span>{{ item.1 }}</span>
-                                                <a href="{% url 'update-cart' f.id %}?name=increase_cart">+</a>
-                                                <a href="{% url 'update-cart' f.id %}?name=delete_cart_item">Remove</a>
-                                            </div>
-                                        {% endif %}
-                                        {% if f.name == item.0 and item.1 == '0' %}
+                                                </div>
+                                            {% endif %}
+                                            {% if f.name == item.0 and item.1 == '0' %}
+                                                <a href="{% url 'update-cart' f.id %}">Add to Cart</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if request.user.is_anonymous %}
                                             <a href="{% url 'update-cart' f.id %}">Add to Cart</a>
                                         {% endif %}
-                                    {% endfor %}
-                                    {% if request.user.is_anonymous %}
-                                        <a href="{% url 'update-cart' f.id %}">Add to Cart</a>
-                                    {% endif %}
+                                    </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    {% endblock maincontent %}
-    {% block payment-gateway %}
-        <script>
+        {% endblock maincontent %}
+        {% block payment-gateway %}
+            <script>
+            function getCookie(name) {
+                // Construct the cookie name search pattern with '='
+                let nameEQ = name + "=";
+                // Split document.cookie string into individual cookies
+                let ca = document.cookie.split(';');
+                // Loop through the cookies array
+                for(let i = 0; i < ca.length; i++) {
+                    // Get a single cookie, trim leading/trailing whitespace
+                    let c = ca[i].trim();
+                    // If the cookie starts with 'name='
+                    if (c.indexOf(nameEQ) === 0) {
+                        // Return the value of the cookie
+                        return c.substring(nameEQ.length, c.length);
+                    }
+                }
+                // Return null if the cookie is not found
+                return null;
+            }
+
+            let selectedCategoryCookie = getCookie("selected_category");
+
+            if(selectedCategoryCookie !== null){
+                document.querySelectorAll(".food-item").forEach((item) => {
+                    item.classList.remove("active");
+                });
+                document.querySelector(`.food-item[data-category-id="${selectedCategoryCookie}"]`).classList.add("active");
+                document.cookie=`selected_category=${selectedCategoryCookie}`;
+            }
+
             document.querySelectorAll(".category").forEach((category) => {
                 category.addEventListener("click", function () {
                     document.querySelectorAll(".food-item").forEach((item) => {
@@ -238,9 +267,10 @@
                     });
                     const categoryId = this.getAttribute("data-category-id");
                     document.querySelector(`.food-item[data-category-id="${categoryId}"]`).classList.add("active");
+                    document.cookie=`selected_category=${categoryId}`;
                 });
             });
-        </script>
-    {% endblock payment-gateway %}
-</body>
+            </script>
+        {% endblock payment-gateway %}
+    </body>
 </html>
