@@ -6,8 +6,156 @@
     {% include 'templates/header.html' %}
 {% endblock headercontent %}
 {% block maincontent %}
+    <style>
+        /* Custom CSS for Orders Page */
+
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+            background-color: #f2f2f2;
+        }
+
+        .table th, .table td {
+            padding: 0.75rem;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .table thead th {
+            background-color: #f2f2f2;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Alert info */
+        .alert {
+            padding: 1rem;
+            margin-top: 2rem;
+            border: 1px solid #bce8f1;
+            border-radius: 4px;
+            color: #31708f;
+            background-color: #d9edf7;
+        }
+
+        /* Progress bar */
+        .progress {
+            background-color: #f3f3f3;
+            border-radius: 4px;
+            overflow: hidden;
+            height: 20px;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            transition: width 0.6s ease;
+        }
+
+        .bg-secondary { background-color: #6c757d; }
+        .bg-info { background-color: #17a2b8; }
+        .bg-primary { background-color: #007bff; }
+        .bg-warning { background-color: #ffc107; }
+        .bg-success { background-color: #28a745; }
+        .progress-bar-striped {
+            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+            background-size: 1rem 1rem;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            outline: 0;
+        }
+
+        .modal-dialog {
+            position: relative;
+            margin: auto;
+            max-width: 600px;
+            width: 90%;
+            pointer-events: none;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            border: 1px solid #999;
+            border-radius: 4px;
+            outline: 0;
+            pointer-events: auto;
+            padding: 1rem;
+        }
+
+        .modal-header, .modal-body, .modal-footer {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-outline-primary {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-secondary {
+            color: #fff;
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+            border-color: #51575d;
+        }
+    </style>
     {% if orders %}
-        <table class="table table-striped text-center table-bordered">
+        <table class="table text-center">
             <thead>
                 <tr>
                     <th scope="col">Order Id</th>
@@ -18,7 +166,7 @@
                     <th scope="col">Order Details</th>
                 </tr>
             </thead>
-            <tbody class="table-group-divider">
+            <tbody>
                 {% for order in orders %}
                     <tr>
                         <th scope="row">#{{ order.id }}</th>
@@ -29,7 +177,7 @@
                             {{ order.status }}
                             <div class="progress">
                                 {% if order.status == "Pending" %}
-                                    <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated"
+                                    <div class="progress-bar bg-secondary progress-bar-striped"
                                          role="progressbar"
                                          style="width: 100%"
                                          aria-valuenow="100"
@@ -112,7 +260,7 @@
                             </p>
                             <hr>
                             <h3>Your Order</h3>
-                            <table class="table table-striped text-center table-bordered">
+                            <table class="table text-center">
                                 <thead>
                                     <tr>
                                         <th scope="col">Food</th>
@@ -121,7 +269,7 @@
                                         <th scope="col">Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-group-divider">
+                                <tbody>
                                     {% for item in order_items %}
                                         {% if item.order.id == order.id %}
                                             <tr>
@@ -143,6 +291,6 @@
             </div>
         {% endfor %}
     {% else %}
-        <h1 class="alert alert-info text-center mt-5">You Have Not Places Any Orders Yet</h1>
+        <h1 class="alert alert-info text-center mt-5">You Have Not Placed Any Orders Yet</h1>
     {% endif %}
 {% endblock maincontent %}
