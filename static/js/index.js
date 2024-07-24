@@ -2,9 +2,7 @@
 
 
 
-/**
- * navbar toggle
- */
+
 
 const navbar = document.querySelector("[data-navbar]");
 const navbarLinks = document.querySelectorAll("[data-nav-link]");
@@ -24,9 +22,6 @@ for (let i = 0; i < navbarLinks.length; i++) {
 
 
 
-/**
- * header sticky & back to top
- */
 
 const header = document.querySelector("[data-header]");
 const backTopBtn = document.querySelector("[data-back-top-btn]");

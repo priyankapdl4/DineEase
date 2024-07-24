@@ -129,6 +129,8 @@ def checkout(request):
                 total_amount += sub_total
             Orders.objects.filter(id=new_order.id).update(total_amount=total_amount)
         cartitems.delete()
+
+        
         return HttpResponseRedirect('/myorders/')
     else:
         return HttpResponse('<H1>Invalid Request</H1>')
